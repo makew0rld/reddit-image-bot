@@ -133,7 +133,11 @@ async def ping(ctx, args):
     await ctx.send(f"Latency: {bot.latency}")
 
 
-commands = {"ping": ping}
+async def _help(ctx, args):
+    await ctx.send("Subreddit syntax: `!r subreddit [top|hot|rising|new] [1-5]`\nLatency: `!r ping`\nExamples:\n```\n!r pics\n!r pics new\n!r pics 3\n!r pics top 2\n```")
+
+
+commands = {"ping": ping, "help": _help}
 
 # Read token from file, so it's not stored in public code
 f = open("token", 'r')
