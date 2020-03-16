@@ -41,8 +41,6 @@ async def on_disconnect():
 async def process_commands(ctx, *args):
     """All commands start here."""
 
-    print("Process:", args)
-
     if args == [] or args[0].strip() == "":
         await ctx.send("A command is needed.")
         return
@@ -96,20 +94,16 @@ async def subreddit_image(ctx, args):
         links = []
         for post in data["data"]["children"]:
             try:
-                if post["data"]["post_hint"] == "image":
+                if post["data"]["post_hint"] == "image" and post["data"]["over_18"] != True:
                     urls.append(post["data"]["preview"]["images"][0]["source"]["url"])
                     titles.append(post["data"]["title"])
                     links.append("https://www.reddit.com" + post["data"]["permalink"])
             except KeyError:
                 # Maybe a mod post or something, move on
                 continue
-        
-        assert len(urls) == len(titles) == len(links)
-
-        print(f"{len(urls)} images found.")
 
         if len(urls) == 0:
-            await ctx.send(f"No images found on the front page with sort {sort}")
+            await ctx.send(f"No SFW images found on the front page with sort {sort}")
             return
 
         # Sent multiple images, as the user asked for
