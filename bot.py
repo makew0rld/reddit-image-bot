@@ -17,7 +17,9 @@ bot = commands.Bot(command_prefix=PREFIX, description="Test description.")
 # {"command_name": command_func, ...}
 commands = {}  # Initialized lower down, after all the functions 
 
-session = None  # aiohttp.ClientSession()
+session = aiohttp.ClientSession(skip_auto_headers=["User-Agent"],
+                                headers={"User-Agent": "Linux:reddit-image-discord-bot:0 (by /u/makeworld)"})
+
 
 
 @bot.event
