@@ -25,18 +25,6 @@ async def on_ready():
     print("--- Ready ---")
 
 
-@bot.event
-async def on_connect():
-    global session
-    session = aiohttp.ClientSession(skip_auto_headers=["User-Agent"],
-                                    headers={"User-Agent": "Linux:reddit-image-discord-bot:0 (by /u/makeworld)"})
-
-
-@bot.event
-async def on_disconnect():
-    await session.close()
-
-
 @bot.command(name='r')
 async def process_commands(ctx, *args):
     """All commands start here."""
